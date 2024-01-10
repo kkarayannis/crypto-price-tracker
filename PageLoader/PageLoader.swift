@@ -48,8 +48,5 @@ public struct PageLoader: View {
         .onReceive(page.loadingStatePublisher) {
             state = $0
         }
-        .refreshable {
-            page.load()
-        }
     }
 }

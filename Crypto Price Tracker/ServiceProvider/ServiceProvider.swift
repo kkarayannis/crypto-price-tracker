@@ -8,6 +8,7 @@ protocol ServiceProviding {
     func provideDataLoader() -> DataLoading
     func providePageFactory() -> PageFactory
     func provideCache() -> Caching
+    func provideSettings() -> Settings
 }
 
 final class ServiceProvider: ServiceProviding {
@@ -21,8 +22,13 @@ final class ServiceProvider: ServiceProviding {
         cache
     }
     
+    private let settings = Settings(userDefaults: UserDefaults.standard)
+    func provideSettings() -> Settings {
+        settings
+    }
+    
     private lazy var pageFactory = PageFactoryImplementation(
-        coinListLoader: CoinListLoader(dataLoader: dataLoader, cache: cache)
+        coinListLoader: CoinListLoader(dataLoader: dataLoader, cache: cache), settings: settings
     )
     func providePageFactory() -> PageFactory {
         pageFactory

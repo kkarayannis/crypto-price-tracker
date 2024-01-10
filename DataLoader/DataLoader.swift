@@ -36,8 +36,7 @@ public final class DataLoader: DataLoading {
         }
         
         return urlSession.dataTaskPublisher(for: request)
-            .map { data, response in
-                print(response)
+            .map { data, _ in
                 return data
             }
             .eraseToAnyPublisher()

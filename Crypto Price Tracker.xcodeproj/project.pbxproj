@@ -44,6 +44,10 @@
 		2E611B722B4C533E00A96FCB /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E611B712B4C533E00A96FCB /* String+Extensions.swift */; };
 		2E611B742B4D37E000A96FCB /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E611B732B4D37E000A96FCB /* View+Extensions.swift */; };
 		2E611B772B4D38A600A96FCB /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E611B762B4D38A600A96FCB /* NavigationCoordinator.swift */; };
+		2E611B7B2B4DB4DB00A96FCB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E611B7A2B4DB4DB00A96FCB /* SettingsView.swift */; };
+		2E611B7F2B4DB59700A96FCB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E611B7E2B4DB59700A96FCB /* Settings.swift */; };
+		2E611B812B4E8DF300A96FCB /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E611B802B4E8DF300A96FCB /* SettingsPage.swift */; };
+		2E611B832B4E90CC00A96FCB /* ModalPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E611B822B4E90CC00A96FCB /* ModalPageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +176,10 @@
 		2E611B712B4C533E00A96FCB /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		2E611B732B4D37E000A96FCB /* View+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		2E611B762B4D38A600A96FCB /* NavigationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
+		2E611B7A2B4DB4DB00A96FCB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		2E611B7E2B4DB59700A96FCB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		2E611B802B4E8DF300A96FCB /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
+		2E611B822B4E90CC00A96FCB /* ModalPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -366,6 +374,7 @@
 			children = (
 				2E611B752B4D389A00A96FCB /* Navigation */,
 				2E611B4D2B4C4C0300A96FCB /* CoinList */,
+				2E611B792B4DB4B900A96FCB /* Settings */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -420,6 +429,7 @@
 			children = (
 				2E611B6B2B4C4D4600A96FCB /* PageFactory.swift */,
 				2E611B762B4D38A600A96FCB /* NavigationCoordinator.swift */,
+				2E611B822B4E90CC00A96FCB /* ModalPageView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -432,6 +442,16 @@
 				2E611B552B4C4C7C00A96FCB /* CoinListViewModel.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		2E611B792B4DB4B900A96FCB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2E611B802B4E8DF300A96FCB /* SettingsPage.swift */,
+				2E611B7A2B4DB4DB00A96FCB /* SettingsView.swift */,
+				2E611B7E2B4DB59700A96FCB /* Settings.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -755,8 +775,12 @@
 				2E611B522B4C4C6000A96FCB /* CoinListView.swift in Sources */,
 				2E611B722B4C533E00A96FCB /* String+Extensions.swift in Sources */,
 				2E611B642B4C4D0A00A96FCB /* ServiceProvider.swift in Sources */,
+				2E611B7B2B4DB4DB00A96FCB /* SettingsView.swift in Sources */,
 				2E611B562B4C4C7C00A96FCB /* CoinListViewModel.swift in Sources */,
+				2E611B832B4E90CC00A96FCB /* ModalPageView.swift in Sources */,
+				2E611B7F2B4DB59700A96FCB /* Settings.swift in Sources */,
 				2E611B592B4C4CA400A96FCB /* CoinListItemView.swift in Sources */,
+				2E611B812B4E8DF300A96FCB /* SettingsPage.swift in Sources */,
 				2E611B742B4D37E000A96FCB /* View+Extensions.swift in Sources */,
 				2E611AA52B4C4A4000A96FCB /* CryptoPriceTrackerApp.swift in Sources */,
 				2E611B5B2B4C4CAE00A96FCB /* CoinListItemViewModel.swift in Sources */,

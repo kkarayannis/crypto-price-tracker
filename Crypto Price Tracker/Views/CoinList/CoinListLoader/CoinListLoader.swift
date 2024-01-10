@@ -36,10 +36,12 @@ final class CoinListLoader: CoinListLoading {
                 NSLog(error.localizedDescription)
                 return CoinListLoaderError.networkError
             }
-//            .cache(PublisherCache(key: Self.coinListCacheKey.toBase64(), cache: cache))
+            .cache(PublisherCache(key: Self.coinListCacheKey.toBase64(), cache: cache))
             .tryMap {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
+                
+                // Assuming 1 USDT == 1 USD, we can get the prices in USDT.
                 let coinsInUSDT = try decoder.decode([Coin].self, from: $0)
                     .filter { $0.quoteAsset.hasSuffix("usdt") }
                 return coinsInUSDT

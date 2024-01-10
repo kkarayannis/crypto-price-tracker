@@ -10,7 +10,7 @@ struct NavigationCoordinator: View {
     var rootPage: any Page {
         pageFactory.createPage(for: rootPageType)
     }
-    
+        
     var body: some View {
         NavigationStack {
             PageLoader(page: rootPage)

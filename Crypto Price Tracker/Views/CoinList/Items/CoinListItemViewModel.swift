@@ -1,12 +1,35 @@
-import Foundation
+import Combine
 
-final class CoinListItemViewModel: Identifiable, Equatable {
+final class CoinListItemViewModel: Identifiable, Equatable, ObservableObject {
+    private let settings: Settings
     let name: String
-    let price: String
+    private let price: Double?
+    @Published var priceInCurrency: String?
     
-    init(name: String, price: String) {
+    private var cancellable: AnyCancellable?
+    
+    init(settings: Settings, name: String, price: String) {
+        self.settings = settings
         self.name = name
-        self.price = price
+        self.price = Double(price)
+        
+        calculatePriceInCurrency(settings.currency)
+        subscribeToCurrencyChanges()
+    }
+    
+    private func subscribeToCurrencyChanges() {
+        cancellable = settings.$currency
+            .sink { [weak self] currency in
+                self?.calculatePriceInCurrency(currency)
+            }
+    }
+    
+    private func calculatePriceInCurrency(_ currency: Currency) {
+        guard let price else {
+            return
+        }
+        let adjustedPrice = currency == .usd ? price : price * 10
+        priceInCurrency = String(adjustedPrice)
     }
     
     static func == (lhs: CoinListItemViewModel, rhs: CoinListItemViewModel) -> Bool {

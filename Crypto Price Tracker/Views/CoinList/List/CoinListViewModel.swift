@@ -5,14 +5,18 @@ import PageLoader
 
 final class CoinListViewModel {
     private let coinListLoader: CoinListLoading
+    private let settings: Settings
+    let pageFactory: PageFactory
         
     let title = "Crypto Prices" // TODO: Localize
     
     @Published private var itemsResult: Result<[CoinListItemViewModel], Error>?
     private var cancellable: AnyCancellable?
     
-    init(coinListLoader: CoinListLoading) {
+    init(coinListLoader: CoinListLoading, settings: Settings, pageFactory: PageFactory) {
         self.coinListLoader = coinListLoader
+        self.settings = settings
+        self.pageFactory = pageFactory
     }
     
     lazy var itemsPublisher: AnyPublisher<[CoinListItemViewModel], Never> = $itemsResult
@@ -71,7 +75,7 @@ final class CoinListViewModel {
     
     private func items(from coins: [Coin]) -> [CoinListItemViewModel] {
         coins.map {
-            CoinListItemViewModel(name: $0.baseAsset, price: $0.lastPrice)
+            CoinListItemViewModel(settings: settings, name: $0.baseAsset, price: $0.lastPrice)
         }
     }
     

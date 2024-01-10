@@ -2,7 +2,7 @@ import SwiftUI
 
 /// View that displays an item in the coin list.
 struct CoinListItemView: View {
-    private let viewModel: CoinListItemViewModel
+    @ObservedObject private var viewModel: CoinListItemViewModel
     
     init(viewModel: CoinListItemViewModel) {
         self.viewModel = viewModel
@@ -14,7 +14,7 @@ struct CoinListItemView: View {
                 Text(viewModel.name)
                     .font(.headline)
                 Spacer()
-                Text(viewModel.price)
+                Text(viewModel.priceInCurrency ?? "")
                     .font(.subheadline)
             }
             Spacer()

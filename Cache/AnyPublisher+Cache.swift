@@ -10,15 +10,16 @@ extension Publisher<Data, Error> {
     /// The cache never emits any errors.
     /// The upstream publisher's errors are emitted but only if the cache hasn't emitted any elements. If it has, then this publisher finishes without an error.
     public func cache(_ cache: PublisherCaching) -> AnyPublisher<Data, Error> {
-        cache.cacheElements(from: self)
+        let upstream = self.share()
+        cache.cacheElements(from: upstream)
         
         let cachePublisher = cache.cachedDataPublisher
             .ignoreError() // We don't care about errors due to a cache misses.
-            .prefix(untilOutputFrom: self) // Only emit cached elements before the upstream publisher emits any elements.
+            .prefix(untilOutputFrom: upstream) // Only emit cached elements before the upstream publisher emits any elements.
         
         var hasEmittedElement = false
         return cachePublisher
-            .merge(with: self)
+            .merge(with: upstream)
             .handleEvents(receiveOutput: { _ in
                 hasEmittedElement = true
             })
