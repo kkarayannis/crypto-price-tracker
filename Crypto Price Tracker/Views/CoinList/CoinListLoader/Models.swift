@@ -2,7 +2,7 @@ import Foundation
 
 /// The objects that are received from the endpoint.
 
-struct Coin: Codable {
+struct Coin: Codable, Equatable {
     let symbol: String
     let baseAsset: String
     let quoteAsset: String

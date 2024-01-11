@@ -2,39 +2,56 @@ import Combine
 
 final class CoinListItemViewModel: Identifiable, Equatable, ObservableObject {
     private let settings: Settings
-    let name: String
-    private let price: Double?
+    private let exchangeRates: ExchangeRates
+    private let coin: Coin
     @Published var priceInCurrency: String?
     
-    private var cancellable: AnyCancellable?
+    private var cancellables = [AnyCancellable]()
     
-    init(settings: Settings, name: String, price: String) {
+    init(settings: Settings, exchangeRates: ExchangeRates, coin: Coin) {
         self.settings = settings
-        self.name = name
-        self.price = Double(price)
+        self.exchangeRates = exchangeRates
+        self.coin = coin
         
-        calculatePriceInCurrency(settings.currency)
+        calculatePriceInCurrency(settings.currency, rates: exchangeRates.rates)
         subscribeToCurrencyChanges()
     }
     
-    private func subscribeToCurrencyChanges() {
-        cancellable = settings.$currency
-            .sink { [weak self] currency in
-                self?.calculatePriceInCurrency(currency)
-            }
+    var name: String {
+        coin.baseAsset
     }
     
-    private func calculatePriceInCurrency(_ currency: Currency) {
-        guard let price else {
+    private func subscribeToCurrencyChanges() {
+        // User-selected currency
+        settings.$currency
+            .sink { [weak self] currency in
+                self?.calculatePriceInCurrency(currency, rates: self?.exchangeRates.rates)
+            }
+            .store(in: &cancellables)
+        
+        // Exchange rates
+        exchangeRates.$rates
+            .sink { [weak self] rates in
+                guard let self else {
+                    return
+                }
+                self.calculatePriceInCurrency(self.settings.currency, rates: rates)
+            }
+            .store(in: &cancellables)
+        
+    }
+    
+    private func calculatePriceInCurrency(_ currency: Currency, rates: CurrencyExchangeRate?) {
+        guard let price = Double(coin.lastPrice),
+        let rates else {
             return
         }
-        let adjustedPrice = currency == .usd ? price : price * 10
+        let adjustedPrice = currency == .usd ? price : price * rates.usd.sek
         priceInCurrency = String(adjustedPrice)
     }
     
     static func == (lhs: CoinListItemViewModel, rhs: CoinListItemViewModel) -> Bool {
-        lhs.name == rhs.name &&
-        lhs.price == rhs.price
+        lhs.coin == rhs.coin
     }
     
 //    #if DEBUG

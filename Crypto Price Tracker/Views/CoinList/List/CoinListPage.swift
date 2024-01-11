@@ -28,6 +28,6 @@ final class CoinListPage: Page {
     }
     
     func load() {
-        viewModel.loadItems()
+        viewModel.loadCoins()
     }
 }

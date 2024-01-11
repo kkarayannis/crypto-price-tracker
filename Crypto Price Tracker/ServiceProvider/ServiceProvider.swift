@@ -9,6 +9,7 @@ protocol ServiceProviding {
     func providePageFactory() -> PageFactory
     func provideCache() -> Caching
     func provideSettings() -> Settings
+    func provideExchangeRates() -> ExchangeRates
 }
 
 final class ServiceProvider: ServiceProviding {
@@ -28,9 +29,18 @@ final class ServiceProvider: ServiceProviding {
     }
     
     private lazy var pageFactory = PageFactoryImplementation(
-        coinListLoader: CoinListLoader(dataLoader: dataLoader, cache: cache), settings: settings
+        coinListLoader: CoinListLoader(dataLoader: dataLoader, cache: cache),
+        settings: settings,
+        exchangeRates: exchangeRates
     )
     func providePageFactory() -> PageFactory {
         pageFactory
+    }
+    
+    private lazy var exchangeRates = ExchangeRates(
+        exchangeRateLoader: ExchangeRateLoader(dataLoader: dataLoader, cache: cache)
+    )
+    func provideExchangeRates() -> ExchangeRates {
+        exchangeRates
     }
 }

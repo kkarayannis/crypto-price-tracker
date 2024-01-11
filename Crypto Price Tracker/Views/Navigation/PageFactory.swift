@@ -16,10 +16,12 @@ protocol PageFactory {
 final class PageFactoryImplementation: PageFactory {
     private let coinListLoader: CoinListLoading
     private let settings: Settings
+    private let exchangeRates: ExchangeRates
     
-    init(coinListLoader: CoinListLoading, settings: Settings) {
+    init(coinListLoader: CoinListLoading, settings: Settings, exchangeRates: ExchangeRates) {
         self.coinListLoader = coinListLoader
         self.settings = settings
+        self.exchangeRates = exchangeRates
     }
     
     func createPage(for type: PageType) -> any Page {
@@ -34,7 +36,12 @@ final class PageFactoryImplementation: PageFactory {
     }
     
     private func createCoinListPage() -> any Page {
-        let viewModel = CoinListViewModel(coinListLoader: coinListLoader, settings: settings, pageFactory: self)
+        let viewModel = CoinListViewModel(
+            coinListLoader: coinListLoader,
+            settings: settings,
+            exchangeRates: exchangeRates,
+            pageFactory: self
+        )
         return CoinListPage(viewModel: viewModel)
     }
     

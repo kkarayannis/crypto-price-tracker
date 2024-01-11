@@ -23,7 +23,7 @@ struct CoinListView: View {
             items = $0
         }
         .refreshable {
-            viewModel.loadItems()
+            viewModel.loadCoins()
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
