@@ -1,10 +1,3 @@
-//
-//  DataLoaderTests.swift
-//  DataLoaderTests
-//
-//  Created by Konstadinos Karayannis on 08/01/2024.
-//
-
 import XCTest
 @testable import DataLoader
 

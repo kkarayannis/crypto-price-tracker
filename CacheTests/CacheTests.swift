@@ -1,36 +1,67 @@
-//
-//  CacheTests.swift
-//  CacheTests
-//
-//  Created by Konstadinos Karayannis on 08/01/2024.
-//
-
 import XCTest
 @testable import Cache
 
 final class CacheTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    // Unit under test
+    private var cache: Caching!
+    
+    // Dependencies
+    private var fileManagerFake: FileManagerFake!
+    
+    override func setUp() {
+        super.setUp()
+        fileManagerFake = FileManagerFake()
+        cache = Cache(fileManager: fileManagerFake)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testCacheWritesDataToDisk() async throws {
+        // Given some data
+        let data = "key to my kingdom".data(using: .utf8)!
+        
+        // When that data is stored in the cache
+        let key = "super-secret-key"
+        try await cache.store(data: data, key: key)
+        
+        // Then the data is stored
+        XCTAssertEqual(fileManagerFake.dataStored, data)
+        XCTAssertTrue(fileManagerFake.pathStored?.hasSuffix(key) ?? false)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testCacheReadsDataFromDisk() async throws {
+        // Given some data on the disk
+        let data = "key to my kingdom".data(using: .utf8)!
+        fileManagerFake.dataToReturn = data
+        
+        // When the cache reads the data
+        let key = "super-secret-key"
+        let dataFetched = try await cache.data(for: key)
+        
+        // Then the data fetched is correct
+        XCTAssertEqual(dataFetched, data)
+        
+        // and the path that was used is correct
+        XCTAssertTrue(fileManagerFake.pathToRead?.hasSuffix(key) ?? false)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testCacheThrowsExceptionWhenWritingError() async throws {
+        // Given some data
+        let data = "key to my kingdom".data(using: .utf8)!
+        
+        // and the file manager will refuse to store the data
+        fileManagerFake.boolToReturn = false
+        
+        // When that data is stored in the cache
+        let key = "super-secret-key"
+        do {
+            try await cache.store(data: data, key: key)
+        } catch {
+            // Then an exception is thrown.
+            XCTAssertEqual(error as? CacheError, .cannotStoreData)
+            return
         }
+        
+        XCTFail("Should not reach here")
     }
 
 }

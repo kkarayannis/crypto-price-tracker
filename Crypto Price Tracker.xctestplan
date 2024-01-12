@@ -1,0 +1,45 @@
+{
+  "configurations" : [
+    {
+      "id" : "B10F7451-D303-45B0-9FCB-F7DD69C88B1F",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Crypto Price Tracker.xcodeproj",
+      "identifier" : "2E611AA02B4C4A4000A96FCB",
+      "name" : "Crypto Price Tracker"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Crypto Price Tracker.xcodeproj",
+        "identifier" : "2E611AB02B4C4A4100A96FCB",
+        "name" : "Crypto Price TrackerTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Crypto Price Tracker.xcodeproj",
+        "identifier" : "2E611AF32B4C4B4B00A96FCB",
+        "name" : "DataLoaderTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Crypto Price Tracker.xcodeproj",
+        "identifier" : "2E611B342B4C4B6A00A96FCB",
+        "name" : "CacheTests"
+      }
+    }
+  ],
+  "version" : 1
+}
