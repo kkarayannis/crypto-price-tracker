@@ -39,10 +39,3 @@ struct CoinListView: View {
         }
     }
 }
-
-//#Preview {
-//    let viewModel = CoinListViewModel(coinListLoader: CoinListLoader.fake, imageLoader: ImageLoader.fake)
-//    viewModel.__setItems([CoinListItemViewModel.example])
-//    
-//    return CoinListView(viewModel: viewModel)
-//}

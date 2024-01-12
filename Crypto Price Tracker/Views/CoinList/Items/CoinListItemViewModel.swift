@@ -53,16 +53,4 @@ final class CoinListItemViewModel: Identifiable, Equatable, ObservableObject {
     static func == (lhs: CoinListItemViewModel, rhs: CoinListItemViewModel) -> Bool {
         lhs.coin == rhs.coin
     }
-    
-//    #if DEBUG
-//    static var example: Self {
-//        self.init(
-//            title: "Title",
-//            id: "id",
-//            authors: "Authors",
-//            year: "2004",
-//            coverViewModel: CoverViewModel.example
-//        )
-//    }
-//    #endif
 }

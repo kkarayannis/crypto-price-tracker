@@ -13,6 +13,7 @@ struct CoinDetailView: View {
         Chart {
             ForEach(prices) { price in
                 LineMark(
+                    // TODO: localize
                     x: .value("Time", Date(timeIntervalSince1970: price.timestamp)),
                     y: .value("Price", price.value)
                 )

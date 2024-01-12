@@ -81,11 +81,4 @@ final class CoinListViewModel {
             CoinListItemViewModel(settings: settings, exchangeRates: exchangeRates, coin: coin)
         }
     }
-    
-    #if DEBUG
-    // Used for Previews only
-    func __setItems(_ items: [CoinListItemViewModel]) {
-        itemsResult = .success(items)
-    }
-    #endif
 }

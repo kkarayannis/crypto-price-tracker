@@ -21,7 +21,3 @@ struct CoinListItemView: View {
         }
     }
 }
-
-//#Preview {
-//    return CoinListItemView(viewModel: CoinListItemViewModel.example)
-//}
