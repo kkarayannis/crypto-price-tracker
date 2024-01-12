@@ -29,7 +29,8 @@ final class ServiceProvider: ServiceProviding {
     }
     
     private lazy var pageFactory = PageFactoryImplementation(
-        coinListLoader: CoinListLoader(dataLoader: dataLoader, cache: cache),
+        coinListLoader: CoinListLoader(dataLoader: dataLoader, cache: cache), 
+        coinTimelineLoader: CoinTimelineLoader(dataLoader: dataLoader, cache: cache),
         settings: settings,
         exchangeRates: exchangeRates
     )

@@ -5,9 +5,9 @@ import PageLoader
 
 /// View that displays a list of cryptocurrencies.
 struct CoinListView: View {
+    private let viewModel: CoinListViewModel
     @State private var items = [CoinListItemViewModel]()
     @State private var isPresentingSettings = false
-    private let viewModel: CoinListViewModel
     
     init(viewModel: CoinListViewModel) {
         self.viewModel = viewModel
@@ -15,7 +15,7 @@ struct CoinListView: View {
         
     var body: some View {
         List(items) { item in
-            NavigationLink(value: PageType.coinDetails(item.name)) {
+            NavigationLink(value: PageType.coinDetails(coinName: item.name)) {
                 CoinListItemView(viewModel: item)
             }
         }

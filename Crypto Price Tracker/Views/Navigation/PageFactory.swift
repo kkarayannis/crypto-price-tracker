@@ -4,7 +4,7 @@ import PageLoader
 
 enum PageType: Hashable {
     case coinList
-    case coinDetails(String)
+    case coinDetails(coinName: String)
     case settings
 }
 
@@ -15,11 +15,18 @@ protocol PageFactory {
 
 final class PageFactoryImplementation: PageFactory {
     private let coinListLoader: CoinListLoading
+    private let coinTimelineLoader: CoinTimelineLoading
     private let settings: Settings
     private let exchangeRates: ExchangeRates
     
-    init(coinListLoader: CoinListLoading, settings: Settings, exchangeRates: ExchangeRates) {
+    init(
+        coinListLoader: CoinListLoading,
+        coinTimelineLoader: CoinTimelineLoading,
+        settings: Settings,
+        exchangeRates: ExchangeRates
+    ) {
         self.coinListLoader = coinListLoader
+        self.coinTimelineLoader = coinTimelineLoader
         self.settings = settings
         self.exchangeRates = exchangeRates
     }
@@ -28,8 +35,8 @@ final class PageFactoryImplementation: PageFactory {
         switch type {
         case .coinList:
             createCoinListPage()
-        case .coinDetails:
-            createCoinListPage()
+        case .coinDetails(let coinName):
+            createCoinDetailsPage(for: coinName)
         case .settings:
             createSettingsPage()
         }
@@ -45,10 +52,15 @@ final class PageFactoryImplementation: PageFactory {
         return CoinListPage(viewModel: viewModel)
     }
     
-//    private func createCoinDetailsPage() -> any Page {
-//        
-//    }
-//    
+    private func createCoinDetailsPage(for coinName: String) -> any Page {
+        let viewModel = CoinDetailViewModel(
+            coinTimelineLoader: coinTimelineLoader,
+            settings: settings, exchangeRates: exchangeRates,
+            coinName: coinName
+        )
+        return CoinDetailPage(viewModel: viewModel)
+    }
+    
     private func createSettingsPage() -> any Page {
         return SettingsPage(settings: settings)
     }
