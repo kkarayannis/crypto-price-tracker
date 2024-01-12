@@ -1,14 +1,7 @@
-//
-//  Crypto_Price_TrackerTests.swift
-//  Crypto Price TrackerTests
-//
-//  Created by Konstadinos Karayannis on 08/01/2024.
-//
-
 import XCTest
-@testable import Crypto_Price_Tracker
+@testable import DataLoader
 
-final class Crypto_Price_TrackerTests: XCTestCase {
+final class DataLoaderTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
